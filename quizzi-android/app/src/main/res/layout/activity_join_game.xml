@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_purple"
+    android:background="@color/bg_white"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="24dp">
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="QUIZZI"
         android:textColor="@color/text_primary"
-        android:textSize="42sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         android:letterSpacing="0.15"
         android:layout_marginBottom="48dp" />
@@ -39,8 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/enter_pin"
-            android:textColor="#B0FFFFFF"
-            android:textSize="16sp"
+            android:textColor="@color/text_muted"
+            android:textSize="15sp"
             android:layout_marginBottom="16dp" />
 
         <EditText
@@ -49,17 +49,23 @@
             android:layout_height="wrap_content"
             style="@style/PinInput"
             android:hint="------"
-            android:textColorHint="#55FFFFFF"
+            android:textColorHint="@color/text_light"
             android:importantForAutofill="no" />
+
+        <View
+            android:layout_width="280dp"
+            android:layout_height="2dp"
+            android:background="@color/text_light"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/enterBtn"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/enter_btn"
-            android:layout_marginTop="24dp"
             android:visibility="gone"
-            style="@style/QuizziButton.Green" />
+            style="@style/QuizziButton.Black" />
 
         <TextView
             android:id="@+id/errorText"
@@ -72,7 +78,7 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <!-- QR Scanner Section (toggled) -->
+    <!-- QR Scanner Section -->
     <LinearLayout
         android:id="@+id/qrSection"
         android:layout_width="match_parent"
@@ -87,7 +93,7 @@
             android:layout_height="wrap_content"
             android:text="@string/scan_qr"
             android:layout_marginTop="24dp"
-            style="@style/QuizziButton.Purple" />
+            style="@style/QuizziButton.Black" />
     </LinearLayout>
 
 </LinearLayout>

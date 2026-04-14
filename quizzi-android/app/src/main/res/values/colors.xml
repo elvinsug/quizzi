@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Brand -->
-    <color name="quizzi_purple">#6C3CE1</color>
-    <color name="quizzi_purple_dark">#5228B5</color>
-    <color name="quizzi_purple_bg">#46178F</color>
+    <!-- Primary -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Backgrounds -->
+    <color name="bg_page">#F6F6F6</color>
+    <color name="bg_white">#FFFFFF</color>
+
+    <!-- Pastel Accents -->
+    <color name="pastel_lavender">#C2C7FF</color>
+    <color name="pastel_blue">#B3E5FC</color>
+    <color name="pastel_cyan">#D7F0FF</color>
+    <color name="pastel_beige">#F5DEB3</color>
+    <color name="pastel_pink">#F4B3CE</color>
+    <color name="pastel_yellow">#FFEE55</color>
+    <color name="pastel_green">#C8F7C5</color>
+    <color name="pastel_red">#FFD4D4</color>
 
     <!-- Answer Colors -->
     <color name="answer_a">#E21B3C</color>
@@ -11,29 +24,32 @@
     <color name="answer_c">#D89E00</color>
     <color name="answer_d">#26890C</color>
 
-    <!-- CTA -->
-    <color name="cta_green">#26890C</color>
-    <color name="cta_blue">#1368CE</color>
-
     <!-- Feedback -->
     <color name="correct_green">#27AE60</color>
     <color name="wrong_red">#E74C3C</color>
 
-    <!-- Backgrounds -->
-    <color name="bg_primary">#46178F</color>
-    <color name="bg_card">#FFFFFF</color>
-
     <!-- Text -->
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_dark">#1A1A2E</color>
-    <color name="text_muted">#8E8EA0</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_body">#333333</color>
+    <color name="text_muted">#7C7C7C</color>
+    <color name="text_light">#A0A0A0</color>
+
+    <!-- Legacy aliases for existing code references -->
+    <color name="quizzi_purple">#000000</color>
+    <color name="quizzi_purple_dark">#000000</color>
+    <color name="quizzi_purple_bg">#C2C7FF</color>
+    <color name="cta_green">#000000</color>
+    <color name="cta_blue">#1368CE</color>
+    <color name="bg_primary">#FFFFFF</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="text_dark">#000000</color>
+
+    <!-- Status -->
+    <color name="banner_info">#1368CE</color>
+    <color name="banner_error">#E21B3C</color>
 
     <!-- Podium -->
     <color name="gold">#FFD700</color>
     <color name="silver">#C0C0C0</color>
     <color name="bronze">#CD7F32</color>
-
-    <!-- Status Banners -->
-    <color name="banner_info">#1368CE</color>
-    <color name="banner_error">#E21B3C</color>
 </resources>

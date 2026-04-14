@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="true" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,17 +8,15 @@
     <link rel="stylesheet" href="css/quizzi.css">
 </head>
 <body>
-    <div class="quizzi-bg" style="padding:2rem; justify-content:center;">
-        <h1 class="text-center" style="font-size:2.5rem; margin-bottom:2rem;">&#127942; LEADERBOARD</h1>
+    <div class="game-bg" style="justify-content:center;">
+        <h1 class="text-center" style="font-size:2rem; margin-bottom:2rem;">LEADERBOARD</h1>
         <ul class="leaderboard-list" id="lbList"></ul>
         <div class="text-center mt-4">
-            <a href="index.jsp" class="btn btn-purple">Back to Dashboard</a>
+            <a href="index.jsp" class="btn btn-black">BACK TO DASHBOARD</a>
         </div>
     </div>
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const sessionId = params.get('sessionId');
-
+        const sessionId = new URLSearchParams(window.location.search).get('sessionId');
         async function loadLeaderboard() {
             const resp = await fetch('/quizzi/api/leaderboard?sessionId=' + sessionId);
             const data = await resp.json();
@@ -28,21 +26,13 @@
             data.forEach((entry, i) => {
                 const li = document.createElement('li');
                 li.className = 'leaderboard-item';
-                li.innerHTML = `
-                    <span class="leaderboard-rank">\${medals[i] || entry.rank}</span>
-                    <span class="leaderboard-name">\${escHtml(entry.nickname)}</span>
-                    <span class="leaderboard-score">\${entry.score.toLocaleString()} pts</span>
-                `;
+                li.innerHTML = `<span class="leaderboard-rank">${medals[i] || entry.rank}</span>
+                    <span class="leaderboard-name">${escHtml(entry.nickname)}</span>
+                    <span class="leaderboard-score">${entry.score.toLocaleString()} pts</span>`;
                 list.appendChild(li);
             });
         }
-
-        function escHtml(s) {
-            const d = document.createElement('div');
-            d.textContent = s || '';
-            return d.innerHTML;
-        }
-
+        function escHtml(s) { const d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
         loadLeaderboard();
     </script>
 </body>

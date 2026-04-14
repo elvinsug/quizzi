@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="true" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,23 +11,23 @@
 </head>
 <body>
     <div class="lobby-container">
-        <div class="quizzi-logo">QUIZZI</div>
+        <div class="quizzi-logo" style="font-size:2rem; margin-bottom:1.5rem;">QUIZZI</div>
 
-        <p style="font-size:1.1rem; opacity:0.8; margin-bottom:0.5rem;">Join at: <strong>quizzi/play</strong> or use the Quizzi Android app</p>
+        <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom:0.5rem;">Join at <strong style="color:var(--text-primary);">quizzi/play</strong> or use the app</p>
 
-        <p style="font-size:1.1rem; opacity:0.7;">Game PIN</p>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:0.25rem;">Game PIN</p>
         <div class="game-pin-display" id="pinDisplay"></div>
 
         <div class="qr-container" id="qrCode"></div>
 
-        <p style="font-size:1.1rem; margin-top:1rem;">
+        <p style="font-size:1rem; margin-top:1rem; font-weight:700;">
             <span id="playerCount">0</span> player(s) joined
         </p>
 
         <div class="player-list" id="playerList"></div>
 
-        <button class="btn btn-green btn-lg" id="startBtn" onclick="startGame()" style="margin-top:1.5rem;">
-            Start Game
+        <button class="btn btn-black btn-lg" id="startBtn" onclick="startGame()" style="margin-top:1.5rem;">
+            START GAME
         </button>
     </div>
 
@@ -38,15 +38,11 @@
 
         document.getElementById('pinDisplay').textContent = pin.replace(/(\d{3})(\d{3})/, '$1 $2');
 
-        // Generate QR code pointing to the web player
         const baseUrl = window.location.origin;
         const playUrl = baseUrl + '/quizzi/play/?pin=' + pin;
         new QRCode(document.getElementById('qrCode'), {
-            text: playUrl,
-            width: 180,
-            height: 180,
-            colorDark: '#1A1A2E',
-            colorLight: '#ffffff',
+            text: playUrl, width: 160, height: 160,
+            colorDark: '#000000', colorLight: '#ffffff',
             correctLevel: QRCode.CorrectLevel.M
         });
 

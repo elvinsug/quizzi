@@ -37,11 +37,19 @@ public class CreateQuizServlet extends HttpServlet {
             String title = extractJsonString(body, "title");
             String description = extractJsonString(body, "description");
 
+            Integer userId = null;
+            jakarta.servlet.http.HttpSession session = req.getSession(false);
+            if (session != null && session.getAttribute("userId") != null) {
+                userId = (Integer) session.getAttribute("userId");
+            }
+
             PreparedStatement quizStmt = conn.prepareStatement(
-                "INSERT INTO quizzes (title, description) VALUES (?, ?)",
+                "INSERT INTO quizzes (title, description, user_id) VALUES (?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS);
             quizStmt.setString(1, title);
             quizStmt.setString(2, description);
+            if (userId != null) quizStmt.setInt(3, userId);
+            else quizStmt.setNull(3, java.sql.Types.INTEGER);
             quizStmt.executeUpdate();
 
             ResultSet keys = quizStmt.getGeneratedKeys();

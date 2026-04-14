@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_purple"
+    android:background="@color/bg_white"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="32dp">
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="&#128274;"
-        android:textSize="64sp"
+        android:textSize="56sp"
         android:layout_marginBottom="16dp" />
 
     <TextView
@@ -19,15 +19,15 @@
         android:layout_height="wrap_content"
         android:text="@string/answer_locked"
         android:textColor="@color/text_primary"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/waiting_for_everyone"
-        android:textColor="#B0FFFFFF"
-        android:textSize="16sp"
+        android:textColor="@color/text_muted"
+        android:textSize="15sp"
         android:layout_marginTop="8dp" />
 
     <LinearLayout
@@ -38,16 +38,16 @@
         android:gravity="center">
 
         <View android:id="@+id/dot1"
-            android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_width="12dp" android:layout_height="12dp"
             android:layout_margin="6dp"
-            android:background="@drawable/bg_card_rounded" />
+            android:background="@drawable/bg_timer_circle" />
         <View android:id="@+id/dot2"
-            android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_width="12dp" android:layout_height="12dp"
             android:layout_margin="6dp"
-            android:background="@drawable/bg_card_rounded" />
+            android:background="@drawable/bg_timer_circle" />
         <View android:id="@+id/dot3"
-            android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_width="12dp" android:layout_height="12dp"
             android:layout_margin="6dp"
-            android:background="@drawable/bg_card_rounded" />
+            android:background="@drawable/bg_timer_circle" />
     </LinearLayout>
 </LinearLayout>

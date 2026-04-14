@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_purple"
+    android:background="@color/bg_white"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="32dp">
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="&#127881;"
-        android:textSize="56sp"
+        android:textSize="48sp"
         android:layout_marginBottom="12dp" />
 
     <TextView
@@ -19,15 +19,15 @@
         android:layout_height="wrap_content"
         android:text="@string/game_over"
         android:textColor="@color/text_primary"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/your_rank"
-        android:textColor="#B0FFFFFF"
-        android:textSize="18sp"
+        android:textColor="@color/text_muted"
+        android:textSize="16sp"
         android:layout_marginTop="24dp" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_primary"
-        android:textSize="64sp"
+        android:textSize="56sp"
         android:textStyle="bold"
         android:layout_marginTop="4dp" />
 
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_primary"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="12dp" />
 
@@ -52,8 +52,8 @@
         android:id="@+id/messageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#B0FFFFFF"
-        android:textSize="16sp"
+        android:textColor="@color/text_muted"
+        android:textSize="15sp"
         android:layout_marginTop="16dp" />
 
     <com.google.android.material.button.MaterialButton
@@ -62,5 +62,5 @@
         android:layout_height="wrap_content"
         android:text="@string/play_again"
         android:layout_marginTop="40dp"
-        style="@style/QuizziButton.Purple" />
+        style="@style/QuizziButton.Black" />
 </LinearLayout>

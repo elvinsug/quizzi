@@ -5,12 +5,23 @@
 CREATE DATABASE IF NOT EXISTS quizzi;
 USE quizzi;
 
--- 1. Quizzes created by the instructor
+-- 0. User accounts (optional — guests have no row here)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    display_name VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 1. Quizzes created by a user or guest
 CREATE TABLE quizzes (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 -- 2. Questions belonging to a quiz
@@ -45,9 +56,11 @@ CREATE TABLE game_sessions (
 CREATE TABLE players (
     id INT AUTO_INCREMENT PRIMARY KEY,
     game_session_id INT NOT NULL,
+    user_id INT NULL,
     nickname VARCHAR(50) NOT NULL,
     total_score INT DEFAULT 0,
-    FOREIGN KEY (game_session_id) REFERENCES game_sessions(id) ON DELETE CASCADE
+    FOREIGN KEY (game_session_id) REFERENCES game_sessions(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 -- 5. Individual responses
