@@ -19,7 +19,7 @@
     <string name="points_format">%,d points</string>
     <string name="plus_points">+%,d points</string>
     <string name="total_format">Total: %,d points</string>
-    <string name="rank_format">#%d out of %d</string>
-    <string name="q_of_total">Q%d of %d</string>
+    <string name="rank_format">#%1$d out of %2$d</string>
+    <string name="q_of_total">Q%1$d of %2$d</string>
     <string name="players_in_lobby">%d player(s) in the lobby</string>
 </resources>

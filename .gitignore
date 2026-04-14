@@ -10,6 +10,24 @@ quizzi-web/WEB-INF/lib/
 # Tomcat symlink / local deployment
 tomcat/
 
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets.*
+
+# Keystores (Android signing)
+*.keystore
+*.jks
+release/
+
+# Firebase / Google services
+google-services.json
+
 # Android Studio / Gradle
 quizzi-android/.gradle/
 quizzi-android/.idea/
