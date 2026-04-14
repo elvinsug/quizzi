@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizzi — Dashboard</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/quizzi.css">
 </head>
 <body>
     <nav class="top-nav">
-        <a href="index.jsp" class="logo">Quizzi</a>
+        <a href="index.jsp" class="logo"><img src="images/logo.png" alt="Quizzi" class="logo-icon">Quizzi</a>
         <div class="nav-links">
             <a href="index.jsp">My Quizzes</a>
             <a href="create-quiz.jsp">Create</a>

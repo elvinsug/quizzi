@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Quizzi — Enter Nickname</title>
+    <link rel="icon" type="image/png" href="../images/favicon.png">
     <link rel="stylesheet" href="../css/quizzi.css">
 </head>
 <body>
     <div class="auth-container">
         <div class="auth-card" style="animation: fadeScaleIn 0.4s ease-out;">
+            <img src="../images/logo.png" alt="Quizzi" class="quizzi-logo-img">
             <div class="quizzi-logo" style="font-size:2.5rem; margin:0 0 2rem;">QUIZZI</div>
 
             <div class="form-group" style="margin-bottom:1.25rem;">

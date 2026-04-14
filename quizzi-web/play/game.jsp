@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Quizzi — Game</title>
+    <link rel="icon" type="image/png" href="../images/favicon.png">
     <link rel="stylesheet" href="../css/quizzi.css">
     <script src="../js/polling.js"></script>
 </head>
@@ -12,6 +13,7 @@
 
     <!-- LOBBY -->
     <div id="viewLobby" class="quizzi-bg" style="justify-content:center; padding:2rem;">
+        <img src="../images/logo.png" alt="Quizzi" class="quizzi-logo-img">
         <div class="quizzi-logo" style="font-size:2rem;">QUIZZI</div>
         <h2 style="margin-top:1.5rem; font-size:1.5rem;">You're in!</h2>
         <p style="font-size:1.3rem; font-weight:700; margin:0.5rem 0; color:var(--text-primary);" id="playerName"></p>
@@ -26,16 +28,18 @@
             <span class="step-indicator" id="qNumber"></span>
             <div class="timer" id="timerDisplay">--</div>
         </div>
-        <div class="question-text" id="qText" style="max-width:600px; font-size:1.25rem;"></div>
+        <div class="question-card" style="max-width:600px;">
+            <div class="question-text" id="qText" style="font-size:1.25rem;"></div>
+        </div>
         <div class="answer-grid" style="max-width:500px;" id="answerBtns">
             <button class="answer-btn answer-a" onclick="submitAnswer('a')">
-                <span class="answer-icon">&#9650;</span><span id="optA"></span></button>
+                <span id="optA"></span></button>
             <button class="answer-btn answer-b" onclick="submitAnswer('b')">
-                <span class="answer-icon">&#9670;</span><span id="optB"></span></button>
+                <span id="optB"></span></button>
             <button class="answer-btn answer-c" onclick="submitAnswer('c')">
-                <span class="answer-icon">&#9679;</span><span id="optC"></span></button>
+                <span id="optC"></span></button>
             <button class="answer-btn answer-d" onclick="submitAnswer('d')">
-                <span class="answer-icon">&#9632;</span><span id="optD"></span></button>
+                <span id="optD"></span></button>
         </div>
     </div>
 

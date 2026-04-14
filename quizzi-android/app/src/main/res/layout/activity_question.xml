@@ -39,17 +39,26 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Question Text -->
-    <TextView
-        android:id="@+id/questionText"
+    <!-- Question Card -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_primary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
+        android:background="@drawable/bg_question_card"
+        android:elevation="2dp"
+        android:padding="20dp"
         android:layout_marginBottom="20dp"
-        android:minHeight="80dp" />
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/questionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:minHeight="60dp" />
+    </LinearLayout>
 
     <!-- Answer Grid (2x2) -->
     <LinearLayout

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizzi — Live Game</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/quizzi.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="js/polling.js"></script>
@@ -18,12 +19,14 @@
                 <span class="step-indicator" id="qNumber"></span>
                 <div class="timer" id="timerDisplay">--</div>
             </div>
-            <div class="question-text" id="qText"></div>
+            <div class="question-card">
+                <div class="question-text" id="qText"></div>
+            </div>
             <div class="answer-grid" id="answerGrid">
-                <div class="answer-btn answer-a"><span class="answer-icon">&#9650;</span><span id="optA"></span></div>
-                <div class="answer-btn answer-b"><span class="answer-icon">&#9670;</span><span id="optB"></span></div>
-                <div class="answer-btn answer-c"><span class="answer-icon">&#9679;</span><span id="optC"></span></div>
-                <div class="answer-btn answer-d"><span class="answer-icon">&#9632;</span><span id="optD"></span></div>
+                <div class="answer-btn answer-a"><span id="optA"></span></div>
+                <div class="answer-btn answer-b"><span id="optB"></span></div>
+                <div class="answer-btn answer-c"><span id="optC"></span></div>
+                <div class="answer-btn answer-d"><span id="optD"></span></div>
             </div>
             <div class="answer-count-bar mt-3" style="justify-content:center;">
                 <span id="answerProgress">0 / 0 answered</span>
@@ -152,7 +155,7 @@
             document.getElementById('rCorrectPercent').textContent = correctCount + ' / ' + total + ' got it right (' + pct + '%)';
             if (resultsChart) resultsChart.destroy();
             const ctx = document.getElementById('resultsChart').getContext('2d');
-            const barColors = ['#E21B3C','#1368CE','#D89E00','#26890C'];
+            const barColors = ['#F4737A','#5B8DEF','#F5C242','#4BC67E'];
             resultsChart = new Chart(ctx, {
                 type: 'bar',
                 data: {

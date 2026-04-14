@@ -41,23 +41,57 @@
             android:text="@string/enter_pin"
             android:textColor="@color/text_muted"
             android:textSize="15sp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="20dp" />
 
-        <EditText
-            android:id="@+id/pinInput"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:id="@+id/pinBoxContainer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/PinInput"
-            android:hint="------"
-            android:textColorHint="@color/text_light"
-            android:importantForAutofill="no" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
 
-        <View
-            android:layout_width="280dp"
-            android:layout_height="2dp"
-            android:background="@color/text_light"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="24dp" />
+            <EditText
+                android:id="@+id/pinBox1"
+                style="@style/PinBox"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="8dp" />
+
+            <EditText
+                android:id="@+id/pinBox2"
+                style="@style/PinBox"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="8dp" />
+
+            <EditText
+                android:id="@+id/pinBox3"
+                style="@style/PinBox"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="8dp" />
+
+            <EditText
+                android:id="@+id/pinBox4"
+                style="@style/PinBox"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="8dp" />
+
+            <EditText
+                android:id="@+id/pinBox5"
+                style="@style/PinBox"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="8dp" />
+
+            <EditText
+                android:id="@+id/pinBox6"
+                style="@style/PinBox"
+                android:layout_width="48dp"
+                android:layout_height="56dp" />
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/enterBtn"

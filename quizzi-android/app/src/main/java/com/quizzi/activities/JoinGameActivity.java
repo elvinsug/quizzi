@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 
 public class JoinGameActivity extends AppCompatActivity {
 
-    private EditText pinInput;
+    private EditText[] pinBoxes;
     private MaterialButton enterBtn;
     private TextView errorText;
     private LinearLayout pinSection, qrSection;
@@ -37,11 +38,17 @@ public class JoinGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
 
-        pinInput = findViewById(R.id.pinInput);
+        pinBoxes = new EditText[]{
+                findViewById(R.id.pinBox1), findViewById(R.id.pinBox2),
+                findViewById(R.id.pinBox3), findViewById(R.id.pinBox4),
+                findViewById(R.id.pinBox5), findViewById(R.id.pinBox6)
+        };
         enterBtn = findViewById(R.id.enterBtn);
         errorText = findViewById(R.id.errorText);
         pinSection = findViewById(R.id.pinSection);
         qrSection = findViewById(R.id.qrSection);
+
+        setupPinBoxes();
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Enter PIN"));
@@ -62,20 +69,64 @@ public class JoinGameActivity extends AppCompatActivity {
             @Override public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-        pinInput.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                enterBtn.setVisibility(s.length() == 6 ? View.VISIBLE : View.GONE);
-                errorText.setVisibility(View.GONE);
-            }
-        });
-
-        enterBtn.setOnClickListener(v -> showNicknameDialog(pinInput.getText().toString().trim()));
+        enterBtn.setOnClickListener(v -> showNicknameDialog(getPin()));
 
         MaterialButton scanQrBtn = findViewById(R.id.scanQrBtn);
         scanQrBtn.setOnClickListener(v -> qrLauncher.launch(QRScannerHelper.createScanOptions()));
+
+        pinBoxes[0].requestFocus();
+    }
+
+    private void setupPinBoxes() {
+        for (int i = 0; i < pinBoxes.length; i++) {
+            final int index = i;
+
+            pinBoxes[i].addTextChangedListener(new TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s.length() == 1 && index < pinBoxes.length - 1) {
+                        pinBoxes[index + 1].requestFocus();
+                    }
+                    updateEnterButton();
+                    errorText.setVisibility(View.GONE);
+                }
+            });
+
+            pinBoxes[i].setOnKeyListener((v, keyCode, event) -> {
+                if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (pinBoxes[index].getText().length() == 0 && index > 0) {
+                        pinBoxes[index - 1].getText().clear();
+                        pinBoxes[index - 1].requestFocus();
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+    }
+
+    private String getPin() {
+        StringBuilder sb = new StringBuilder();
+        for (EditText box : pinBoxes) {
+            sb.append(box.getText().toString());
+        }
+        return sb.toString();
+    }
+
+    private void setPin(String pin) {
+        for (int i = 0; i < pinBoxes.length && i < pin.length(); i++) {
+            pinBoxes[i].setText(String.valueOf(pin.charAt(i)));
+        }
+        if (pin.length() >= pinBoxes.length) {
+            pinBoxes[pinBoxes.length - 1].requestFocus();
+        }
+        updateEnterButton();
+    }
+
+    private void updateEnterButton() {
+        enterBtn.setVisibility(getPin().length() == 6 ? View.VISIBLE : View.GONE);
     }
 
     private void handleQRResult(ScanIntentResult result) {
@@ -83,7 +134,7 @@ public class JoinGameActivity extends AppCompatActivity {
         if (contents != null) {
             String pin = QRScannerHelper.extractPinFromUrl(contents);
             if (pin != null) {
-                pinInput.setText(pin);
+                setPin(pin);
                 showNicknameDialog(pin);
             } else {
                 showError("Invalid QR code");

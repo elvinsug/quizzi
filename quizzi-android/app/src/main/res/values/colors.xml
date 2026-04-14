@@ -18,11 +18,11 @@
     <color name="pastel_green">#C8F7C5</color>
     <color name="pastel_red">#FFD4D4</color>
 
-    <!-- Answer Colors -->
-    <color name="answer_a">#E21B3C</color>
-    <color name="answer_b">#1368CE</color>
-    <color name="answer_c">#D89E00</color>
-    <color name="answer_d">#26890C</color>
+    <!-- Answer Colors (Promova-inspired pastels) -->
+    <color name="answer_a">#F4737A</color>
+    <color name="answer_b">#5B8DEF</color>
+    <color name="answer_c">#F5C242</color>
+    <color name="answer_d">#4BC67E</color>
 
     <!-- Feedback -->
     <color name="correct_green">#27AE60</color>

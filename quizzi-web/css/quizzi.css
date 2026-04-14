@@ -31,11 +31,11 @@
     --text-muted: #7C7C7C;
     --text-light: #A0A0A0;
 
-    /* Answer colors */
-    --answer-a: #E21B3C;
-    --answer-b: #1368CE;
-    --answer-c: #D89E00;
-    --answer-d: #26890C;
+    /* Answer colors (Promova-inspired pastels) */
+    --answer-a: #F4737A;
+    --answer-b: #5B8DEF;
+    --answer-c: #F5C242;
+    --answer-d: #4BC67E;
 
     /* Feedback */
     --correct-green: #27AE60;
@@ -105,6 +105,13 @@ a:hover { text-decoration: underline; }
     letter-spacing: 2px;
     text-transform: uppercase;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+.logo-icon {
+    height: 28px;
+    width: 28px;
+    margin-right: 0.5rem;
 }
 .top-nav .logo:hover { text-decoration: none; }
 .top-nav .nav-links {
@@ -224,6 +231,12 @@ a:hover { text-decoration: underline; }
     margin: 2rem 0 1rem;
 }
 .quizzi-logo-white { color: var(--white); }
+.quizzi-logo-img {
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 auto 0.5rem;
+}
 
 /* ---- PIN Input (large digits) ---- */
 .pin-input {
@@ -243,6 +256,35 @@ a:hover { text-decoration: underline; }
 .pin-input::placeholder { color: var(--text-light); font-weight: 600; }
 .pin-input:focus { outline: none; border-bottom-color: var(--black); }
 
+/* ---- PIN Boxes (6 individual inputs) ---- */
+.pin-boxes {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 0 auto;
+}
+.pin-box {
+    width: 56px;
+    height: 64px;
+    border: 2px solid #E6E6E6;
+    border-radius: 12px;
+    background: #F7F7F8;
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    color: var(--text-primary);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    caret-color: transparent;
+}
+.pin-box:focus {
+    outline: none;
+    border-color: var(--black);
+    border-width: 3px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.pin-box::placeholder { color: transparent; }
+
 /* ---- Answer Button Grid ---- */
 .answer-grid {
     display: grid;
@@ -259,17 +301,18 @@ a:hover { text-decoration: underline; }
     justify-content: center;
     height: 120px;
     border: none;
-    border-radius: var(--radius-lg);
+    border-radius: 20px;
     color: #fff;
     font-family: 'Manrope', sans-serif;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     cursor: pointer;
     padding: 1rem 1.5rem;
-    transition: transform 0.12s, opacity 0.12s;
+    transition: transform 0.12s, opacity 0.12s, box-shadow 0.15s;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
 }
-.answer-btn:hover { transform: scale(1.02); }
+.answer-btn:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(0,0,0,0.14); }
 .answer-btn:active { transform: scale(0.98); }
 .answer-btn.disabled { opacity: 0.5; pointer-events: none; }
 .answer-btn.selected { outline: 4px solid var(--black); outline-offset: -4px; }
@@ -277,12 +320,7 @@ a:hover { text-decoration: underline; }
 .answer-b { background: var(--answer-b); }
 .answer-c { background: var(--answer-c); }
 .answer-d { background: var(--answer-d); }
-.answer-icon {
-    position: absolute;
-    top: 12px; left: 14px;
-    font-size: 0.85rem;
-    opacity: 0.6;
-}
+.answer-icon { display: none; }
 
 /* ---- Timer ---- */
 .timer {
@@ -324,6 +362,18 @@ a:hover { text-decoration: underline; }
     color: var(--text-primary);
     max-width: 700px;
     width: 100%;
+}
+.question-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    margin: 0.75rem 0 1.5rem;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.question-card .question-text {
+    margin: 0;
 }
 
 /* ---- Step Indicator ---- */
@@ -588,10 +638,10 @@ a:hover { text-decoration: underline; }
     border-radius: var(--radius-sm);
     border: 1px solid #E8E8E8;
 }
-.answer-option-input.opt-a { background: rgba(226,27,60,0.06); border-left: 4px solid var(--answer-a); }
-.answer-option-input.opt-b { background: rgba(19,104,206,0.06); border-left: 4px solid var(--answer-b); }
-.answer-option-input.opt-c { background: rgba(216,158,0,0.06); border-left: 4px solid var(--answer-c); }
-.answer-option-input.opt-d { background: rgba(38,137,12,0.06); border-left: 4px solid var(--answer-d); }
+.answer-option-input.opt-a { background: rgba(244,115,122,0.08); border-left: 4px solid var(--answer-a); }
+.answer-option-input.opt-b { background: rgba(91,141,239,0.08); border-left: 4px solid var(--answer-b); }
+.answer-option-input.opt-c { background: rgba(245,194,66,0.08); border-left: 4px solid var(--answer-c); }
+.answer-option-input.opt-d { background: rgba(75,198,126,0.08); border-left: 4px solid var(--answer-d); }
 .answer-option-input input[type="text"] {
     flex: 1; border: none; background: transparent;
     font-size: 0.95rem; font-family: 'Manrope', sans-serif; padding: 0.4rem;
@@ -707,7 +757,9 @@ a:hover { text-decoration: underline; }
     .game-pin-display { font-size: 2.5rem; letter-spacing: 0.5rem; padding: 0.75rem 1.5rem; }
     .question-text { font-size: 1.15rem; }
     .answer-grid { grid-template-columns: 1fr; gap: 10px; }
-    .answer-btn { height: 80px; }
+    .answer-btn { height: 80px; border-radius: 16px; }
+    .pin-boxes { gap: 8px; }
+    .pin-box { width: 46px; height: 56px; font-size: 24px; }
     .podium-bar { width: 90px; }
     .podium-1st .podium-bar { height: 150px; }
     .podium-2nd .podium-bar { height: 110px; }

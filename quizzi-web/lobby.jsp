@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizzi — Game Lobby</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/quizzi.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script src="js/polling.js"></script>
 </head>
 <body>
     <div class="lobby-container">
+        <img src="images/logo.png" alt="Quizzi" class="quizzi-logo-img">
         <div class="quizzi-logo" style="font-size:2rem; margin-bottom:1.5rem;">QUIZZI</div>
 
         <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom:0.5rem;">Join at <strong style="color:var(--text-primary);">quizzi/play</strong> or use the app</p>

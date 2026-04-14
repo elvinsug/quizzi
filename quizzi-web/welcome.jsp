@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizzi — Welcome</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/quizzi.css">
 </head>
 <body>
     <div class="auth-container">
         <div class="auth-card" id="welcomeView">
+            <img src="images/logo.png" alt="Quizzi" class="quizzi-logo-img">
             <div class="quizzi-logo" style="margin:0 0 0.5rem; font-size:2.2rem;">QUIZZI</div>
             <p style="margin-bottom:2.5rem;">Create and play live quizzes with friends</p>
 

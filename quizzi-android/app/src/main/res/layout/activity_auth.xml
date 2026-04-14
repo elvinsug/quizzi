@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QUIZZI"
+            android:textColor="@color/text_primary"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.15"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Welcome View -->
+        <LinearLayout
+            android:id="@+id/welcomeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to Quizzi"
+                android:textColor="@color/text_muted"
+                android:textSize="16sp"
+                android:layout_marginBottom="32dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogin"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="LOG IN"
+                style="@style/QuizziButton.Black" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSignup"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="SIGN UP"
+                android:layout_marginTop="12dp"
+                style="@style/QuizziButton.Outline" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuest"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="CONTINUE AS GUEST"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@android:color/transparent"
+                android:textColor="@color/text_muted"
+                app:rippleColor="@color/text_light"
+                style="@style/QuizziButton" />
+        </LinearLayout>
+
+        <!-- Login View -->
+        <LinearLayout
+            android:id="@+id/loginView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in"
+                android:textColor="@color/text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp" />
+
+            <EditText
+                android:id="@+id/loginEmail"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Email or username"
+                android:inputType="textEmailAddress"
+                android:padding="14dp"
+                android:background="@drawable/bg_input_field"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_light"
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
+
+            <EditText
+                android:id="@+id/loginPassword"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="14dp"
+                android:background="@drawable/bg_input_field"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_light"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/loginError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/wrong_red"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDoLogin"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="SIGN IN"
+                android:layout_marginTop="20dp"
+                style="@style/QuizziButton.Black" />
+
+            <TextView
+                android:id="@+id/loginToSignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account? Sign up"
+                android:textColor="@color/text_muted"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/loginBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <!-- Signup View -->
+        <LinearLayout
+            android:id="@+id/signupView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create account"
+                android:textColor="@color/text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp" />
+
+            <EditText
+                android:id="@+id/signupDisplayName"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Display name"
+                android:inputType="textPersonName"
+                android:padding="14dp"
+                android:background="@drawable/bg_input_field"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_light"
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
+
+            <EditText
+                android:id="@+id/signupEmail"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Email or username"
+                android:inputType="textEmailAddress"
+                android:padding="14dp"
+                android:background="@drawable/bg_input_field"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_light"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
+                android:importantForAutofill="no" />
+
+            <EditText
+                android:id="@+id/signupPassword"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="14dp"
+                android:background="@drawable/bg_input_field"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_light"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/signupError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/wrong_red"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDoSignup"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="SIGN UP"
+                android:layout_marginTop="20dp"
+                style="@style/QuizziButton.Black" />
+
+            <TextView
+                android:id="@+id/signupToLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? Sign in"
+                android:textColor="@color/text_muted"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/signupBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</ScrollView>

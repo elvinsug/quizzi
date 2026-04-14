@@ -76,18 +76,18 @@ public class QuestionActivity extends AppCompatActivity {
 
         questionNumber.setText(String.format("Q%d of %d", state.currentQuestionOrder, state.totalQuestions));
         questionText.setText(state.questionText);
-        btnA.setText("\u25B2  " + state.optionA);
-        btnB.setText("\u25C6  " + state.optionB);
+        btnA.setText(state.optionA);
+        btnB.setText(state.optionB);
 
         if (state.optionC != null && !state.optionC.isEmpty()) {
-            btnC.setText("\u25CF  " + state.optionC);
+            btnC.setText(state.optionC);
             btnC.setVisibility(View.VISIBLE);
         } else {
             btnC.setVisibility(View.GONE);
         }
 
         if (state.optionD != null && !state.optionD.isEmpty()) {
-            btnD.setText("\u25A0  " + state.optionD);
+            btnD.setText(state.optionD);
             btnD.setVisibility(View.VISIBLE);
         } else {
             btnD.setVisibility(View.GONE);

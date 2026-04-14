@@ -44,6 +44,27 @@ public class ApiClient {
         }
     }
 
+    public static String postJson(String endpoint, String jsonBody) throws IOException {
+        URL url = new URL(Constants.BASE_URL + endpoint);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setConnectTimeout(Constants.CONNECT_TIMEOUT_MS);
+        conn.setReadTimeout(Constants.READ_TIMEOUT_MS);
+        conn.setDoOutput(true);
+        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+        try (OutputStream os = conn.getOutputStream()) {
+            os.write(jsonBody.getBytes("UTF-8"));
+            os.flush();
+        }
+
+        try {
+            return readResponse(conn);
+        } finally {
+            conn.disconnect();
+        }
+    }
+
     private static String readResponse(HttpURLConnection conn) throws IOException {
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(conn.getInputStream()));
