@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quizzi</string>
+    <string name="join_game">Join Game</string>
+    <string name="enter_pin">Enter Game PIN</string>
+    <string name="scan_qr">Scan QR Code</string>
+    <string name="enter_btn">Enter</string>
+    <string name="nickname_hint">Nickname</string>
+    <string name="lets_go">Let\'s go!</string>
+    <string name="waiting_for_host">Waiting for the host to start the game...</string>
+    <string name="youre_in">You\'re in!</string>
+    <string name="answer_locked">Answer locked in!</string>
+    <string name="waiting_for_everyone">Waiting for everyone...</string>
+    <string name="correct">Correct!</string>
+    <string name="wrong">Wrong!</string>
+    <string name="game_over">Game Over!</string>
+    <string name="play_again">Play Again</string>
+    <string name="your_rank">Your final rank:</string>
+    <string name="points_format">%,d points</string>
+    <string name="plus_points">+%,d points</string>
+    <string name="total_format">Total: %,d points</string>
+    <string name="rank_format">#%d out of %d</string>
+    <string name="q_of_total">Q%d of %d</string>
+    <string name="players_in_lobby">%d player(s) in the lobby</string>
+</resources>

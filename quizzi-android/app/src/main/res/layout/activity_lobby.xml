@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_purple"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QUIZZI"
+        android:textColor="@color/text_primary"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/youre_in"
+        android:textColor="@color/text_primary"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/nicknameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_primary"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/waiting_for_host"
+        android:textColor="#B0FFFFFF"
+        android:textSize="16sp"
+        android:layout_marginTop="32dp" />
+
+    <!-- Waiting dots animation -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        android:gravity="center">
+
+        <View android:id="@+id/dot1"
+            android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/bg_card_rounded" />
+        <View android:id="@+id/dot2"
+            android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/bg_card_rounded" />
+        <View android:id="@+id/dot3"
+            android:layout_width="14dp" android:layout_height="14dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/bg_card_rounded" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/playerCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#80FFFFFF"
+        android:textSize="14sp"
+        android:layout_marginTop="32dp" />
+</LinearLayout>

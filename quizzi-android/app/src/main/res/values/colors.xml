@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand -->
+    <color name="quizzi_purple">#6C3CE1</color>
+    <color name="quizzi_purple_dark">#5228B5</color>
+    <color name="quizzi_purple_bg">#46178F</color>
+
+    <!-- Answer Colors -->
+    <color name="answer_a">#E21B3C</color>
+    <color name="answer_b">#1368CE</color>
+    <color name="answer_c">#D89E00</color>
+    <color name="answer_d">#26890C</color>
+
+    <!-- CTA -->
+    <color name="cta_green">#26890C</color>
+    <color name="cta_blue">#1368CE</color>
+
+    <!-- Feedback -->
+    <color name="correct_green">#27AE60</color>
+    <color name="wrong_red">#E74C3C</color>
+
+    <!-- Backgrounds -->
+    <color name="bg_primary">#46178F</color>
+    <color name="bg_card">#FFFFFF</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_dark">#1A1A2E</color>
+    <color name="text_muted">#8E8EA0</color>
+
+    <!-- Podium -->
+    <color name="gold">#FFD700</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="bronze">#CD7F32</color>
+
+    <!-- Status Banners -->
+    <color name="banner_info">#1368CE</color>
+    <color name="banner_error">#E21B3C</color>
+</resources>
