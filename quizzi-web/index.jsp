@@ -14,6 +14,7 @@
         <div class="nav-links">
             <a href="index.jsp">My Quizzes</a>
             <a href="create-quiz.jsp">Create</a>
+            <a href="play/index.jsp">Join</a>
         </div>
         <div class="nav-right" id="navRight"></div>
     </nav>
@@ -24,7 +25,10 @@
                 <h2 style="font-size:1.6rem;" id="dashTitle">All Quizzes</h2>
                 <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.25rem;" id="dashSubtitle">Create and host live quiz games</p>
             </div>
-            <a href="create-quiz.jsp" class="btn btn-black">+ CREATE QUIZ</a>
+            <div style="display:flex; gap:0.75rem;">
+                <a href="play/index.jsp" class="btn btn-outline">JOIN QUIZ</a>
+                <a href="create-quiz.jsp" class="btn btn-black">+ CREATE QUIZ</a>
+            </div>
         </div>
 
         <div id="quizList" class="quiz-grid">

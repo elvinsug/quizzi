@@ -76,7 +76,7 @@
         <div style="font-size:3.5rem; font-weight:800; margin:0.5rem 0;" id="finalRank"></div>
         <p style="font-size:1.2rem; font-weight:700;" id="finalScore"></p>
         <p style="color:var(--text-muted); margin-top:1rem;" id="finalMessage"></p>
-        <a href="./" class="btn btn-black btn-lg" style="margin-top:2rem;">PLAY AGAIN</a>
+        <a href="index.jsp" class="btn btn-black btn-lg" style="margin-top:2rem;">PLAY AGAIN</a>
     </div>
 
     <!-- STATUS BANNER -->

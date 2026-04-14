@@ -41,7 +41,7 @@
         document.getElementById('pinDisplay').textContent = pin.replace(/(\d{3})(\d{3})/, '$1 $2');
 
         const baseUrl = window.location.origin;
-        const playUrl = baseUrl + '/quizzi/play/?pin=' + pin;
+        const playUrl = baseUrl + '/quizzi/play/index.jsp?pin=' + pin;
         new QRCode(document.getElementById('qrCode'), {
             text: playUrl, width: 160, height: 160,
             colorDark: '#000000', colorLight: '#ffffff',
