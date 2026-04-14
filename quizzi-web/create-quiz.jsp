@@ -84,54 +84,54 @@
                 div.draggable = true;
                 div.dataset.index = i;
                 div.innerHTML = `
-                    <button class="remove-btn" onclick="removeQuestion(${i})" title="Remove">&times;</button>
+                    <button class="remove-btn" onclick="removeQuestion(\${i})" title="Remove">&times;</button>
                     <div style="display:flex; align-items:center; margin-bottom:0.5rem;">
                         <span class="drag-handle">&#9776;</span>
-                        <strong style="font-size:0.9rem; color:var(--text-muted);">Q${i + 1}</strong>
+                        <strong style="font-size:0.9rem; color:var(--text-muted);">Q\${i + 1}</strong>
                     </div>
                     <div class="form-group" style="margin-bottom:0.75rem;">
-                        <input type="text" id="qText_${i}" class="form-control" placeholder="Enter question text"
-                               value="${escAttr(q.questionText)}" onchange="updateQ(${i},'questionText',this.value)" maxlength="500">
+                        <input type="text" id="qText_\${i}" class="form-control" placeholder="Enter question text"
+                               value="\${escAttr(q.questionText)}" onchange="updateQ(\${i},'questionText',this.value)" maxlength="500">
                     </div>
                     <div class="answer-options">
                         <div class="answer-option-input opt-a">
-                            <input type="radio" name="correct_${i}" class="correct-radio" value="a" ${q.correctAnswer==='a'?'checked':''}
-                                   onchange="updateQ(${i},'correctAnswer','a')" title="Mark as correct">
-                            <input type="text" placeholder="Option A" value="${escAttr(q.optionA)}"
-                                   onchange="updateQ(${i},'optionA',this.value)" maxlength="200">
+                            <input type="radio" name="correct_\${i}" class="correct-radio" value="a" \${q.correctAnswer==='a'?'checked':''}
+                                   onchange="updateQ(\${i},'correctAnswer','a')" title="Mark as correct">
+                            <input type="text" placeholder="Option A" value="\${escAttr(q.optionA)}"
+                                   onchange="updateQ(\${i},'optionA',this.value)" maxlength="200">
                         </div>
                         <div class="answer-option-input opt-b">
-                            <input type="radio" name="correct_${i}" class="correct-radio" value="b" ${q.correctAnswer==='b'?'checked':''}
-                                   onchange="updateQ(${i},'correctAnswer','b')" title="Mark as correct">
-                            <input type="text" placeholder="Option B" value="${escAttr(q.optionB)}"
-                                   onchange="updateQ(${i},'optionB',this.value)" maxlength="200">
+                            <input type="radio" name="correct_\${i}" class="correct-radio" value="b" \${q.correctAnswer==='b'?'checked':''}
+                                   onchange="updateQ(\${i},'correctAnswer','b')" title="Mark as correct">
+                            <input type="text" placeholder="Option B" value="\${escAttr(q.optionB)}"
+                                   onchange="updateQ(\${i},'optionB',this.value)" maxlength="200">
                         </div>
                         <div class="answer-option-input opt-c">
-                            <input type="radio" name="correct_${i}" class="correct-radio" value="c" ${q.correctAnswer==='c'?'checked':''}
-                                   onchange="updateQ(${i},'correctAnswer','c')" title="Mark as correct">
-                            <input type="text" placeholder="Option C (optional)" value="${escAttr(q.optionC)}"
-                                   onchange="updateQ(${i},'optionC',this.value)" maxlength="200">
+                            <input type="radio" name="correct_\${i}" class="correct-radio" value="c" \${q.correctAnswer==='c'?'checked':''}
+                                   onchange="updateQ(\${i},'correctAnswer','c')" title="Mark as correct">
+                            <input type="text" placeholder="Option C (optional)" value="\${escAttr(q.optionC)}"
+                                   onchange="updateQ(\${i},'optionC',this.value)" maxlength="200">
                         </div>
                         <div class="answer-option-input opt-d">
-                            <input type="radio" name="correct_${i}" class="correct-radio" value="d" ${q.correctAnswer==='d'?'checked':''}
-                                   onchange="updateQ(${i},'correctAnswer','d')" title="Mark as correct">
-                            <input type="text" placeholder="Option D (optional)" value="${escAttr(q.optionD)}"
-                                   onchange="updateQ(${i},'optionD',this.value)" maxlength="200">
+                            <input type="radio" name="correct_\${i}" class="correct-radio" value="d" \${q.correctAnswer==='d'?'checked':''}
+                                   onchange="updateQ(\${i},'correctAnswer','d')" title="Mark as correct">
+                            <input type="text" placeholder="Option D (optional)" value="\${escAttr(q.optionD)}"
+                                   onchange="updateQ(\${i},'optionD',this.value)" maxlength="200">
                         </div>
                     </div>
                     <div class="time-points-row">
                         <label style="font-size:0.85rem;">Time:
-                            <select onchange="updateQ(${i},'timeLimit',parseInt(this.value))">
-                                <option value="10" ${q.timeLimit===10?'selected':''}>10s</option>
-                                <option value="15" ${q.timeLimit===15?'selected':''}>15s</option>
-                                <option value="20" ${q.timeLimit===20?'selected':''}>20s</option>
-                                <option value="30" ${q.timeLimit===30?'selected':''}>30s</option>
+                            <select onchange="updateQ(\${i},'timeLimit',parseInt(this.value))">
+                                <option value="10" \${q.timeLimit===10?'selected':''}>10s</option>
+                                <option value="15" \${q.timeLimit===15?'selected':''}>15s</option>
+                                <option value="20" \${q.timeLimit===20?'selected':''}>20s</option>
+                                <option value="30" \${q.timeLimit===30?'selected':''}>30s</option>
                             </select>
                         </label>
                         <label style="font-size:0.85rem;">Points:
-                            <select onchange="updateQ(${i},'points',parseInt(this.value))">
-                                <option value="1000" ${q.points===1000?'selected':''}>Standard (1000)</option>
-                                <option value="2000" ${q.points===2000?'selected':''}>Double (2000)</option>
+                            <select onchange="updateQ(\${i},'points',parseInt(this.value))">
+                                <option value="1000" \${q.points===1000?'selected':''}>Standard (1000)</option>
+                                <option value="2000" \${q.points===2000?'selected':''}>Double (2000)</option>
                             </select>
                         </label>
                     </div>

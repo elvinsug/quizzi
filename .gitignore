@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Java compiled classes
+*.class
+
+# MySQL connector JAR (downloaded dependency)
+quizzi-web/WEB-INF/lib/
+
+# Tomcat symlink / local deployment
+tomcat/
+
+# Android Studio / Gradle
+quizzi-android/.gradle/
+quizzi-android/.idea/
+quizzi-android/build/
+quizzi-android/app/build/
+quizzi-android/local.properties
+quizzi-android/gradle/
+quizzi-android/gradlew
+quizzi-android/gradlew.bat
+quizzi-android/captures/
+
+# IDE
+*.iml
+.idea/
+*.swp
+*~

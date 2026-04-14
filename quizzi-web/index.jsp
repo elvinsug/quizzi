@@ -38,15 +38,15 @@
                     const card = document.createElement('div');
                     card.className = 'quiz-card';
                     card.innerHTML = `
-                        <div class="quiz-card-title">${escHtml(q.title)}</div>
+                        <div class="quiz-card-title">\${escHtml(q.title)}</div>
                         <div class="quiz-card-meta">
-                            ${q.questionCount} question${q.questionCount !== 1 ? 's' : ''}
-                            &middot; Created ${new Date(q.createdAt).toLocaleDateString()}
+                            \${q.questionCount} question\${q.questionCount != 1 ? 's' : ''}
+                            &middot; Created \${new Date(q.createdAt).toLocaleDateString()}
                         </div>
-                        <p style="font-size:0.9rem; color:#666; margin-bottom:1rem;">${escHtml(q.description || '')}</p>
+                        <p style="font-size:0.9rem; color:#666; margin-bottom:1rem;">\${escHtml(q.description || '')}</p>
                         <div class="quiz-card-actions">
-                            <button class="btn btn-green" onclick="hostGame(${q.id})">Host Live</button>
-                            <a href="create-quiz.jsp?editId=${q.id}" class="btn btn-blue" style="font-size:0.85rem;">Edit</a>
+                            <button class="btn btn-green" onclick="hostGame(\${q.id})">Host Live</button>
+                            <a href="create-quiz.jsp?editId=\${q.id}" class="btn btn-blue" style="font-size:0.85rem;">Edit</a>
                         </div>
                     `;
                     container.appendChild(card);

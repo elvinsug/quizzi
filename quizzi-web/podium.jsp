@@ -38,10 +38,10 @@
                     const div = document.createElement('div');
                     div.className = 'podium-place ' + classes[idx];
                     div.innerHTML = `
-                        <div class="podium-medal">${medals[idx]}</div>
+                        <div class="podium-medal">\${medals[idx]}</div>
                         <div class="podium-bar">
-                            <span class="podium-name">${escHtml(lb[idx].nickname)}</span>
-                            <span class="podium-score">${lb[idx].score.toLocaleString()} pts</span>
+                            <span class="podium-name">\${escHtml(lb[idx].nickname)}</span>
+                            <span class="podium-score">\${lb[idx].score.toLocaleString()} pts</span>
                         </div>
                     `;
                     podium.appendChild(div);
@@ -53,9 +53,9 @@
                 const li = document.createElement('li');
                 li.className = 'leaderboard-item';
                 li.innerHTML = `
-                    <span class="leaderboard-rank">${entry.rank}</span>
-                    <span class="leaderboard-name">${escHtml(entry.nickname)}</span>
-                    <span class="leaderboard-score">${entry.score.toLocaleString()} pts</span>
+                    <span class="leaderboard-rank">\${entry.rank}</span>
+                    <span class="leaderboard-name">\${escHtml(entry.nickname)}</span>
+                    <span class="leaderboard-score">\${entry.score.toLocaleString()} pts</span>
                 `;
                 full.appendChild(li);
             });

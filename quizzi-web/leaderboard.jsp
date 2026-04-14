@@ -29,9 +29,9 @@
                 const li = document.createElement('li');
                 li.className = 'leaderboard-item';
                 li.innerHTML = `
-                    <span class="leaderboard-rank">${medals[i] || entry.rank}</span>
-                    <span class="leaderboard-name">${escHtml(entry.nickname)}</span>
-                    <span class="leaderboard-score">${entry.score.toLocaleString()} pts</span>
+                    <span class="leaderboard-rank">\${medals[i] || entry.rank}</span>
+                    <span class="leaderboard-name">\${escHtml(entry.nickname)}</span>
+                    <span class="leaderboard-score">\${entry.score.toLocaleString()} pts</span>
                 `;
                 list.appendChild(li);
             });
