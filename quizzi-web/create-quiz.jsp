@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizzi — Create Quiz</title>
+    <title>Quizzi — Quiz Editor</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/quizzi.css">
     <style>
@@ -40,7 +40,7 @@
 
     <div class="dashboard">
         <div style="max-width:800px; margin:0 auto;">
-            <h2 style="margin-bottom:1.5rem;">Create New Quiz</h2>
+            <h2 id="pageHeading" style="margin-bottom:1.5rem;">Create New Quiz</h2>
 
             <div class="card" style="max-width:100%; margin-bottom:1.5rem;">
                 <div class="form-group">
@@ -64,6 +64,51 @@
 
     <script>
         let questions = [];
+        let editId = null;
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('editId')) {
+            editId = parseInt(params.get('editId'), 10);
+        }
+
+        if (editId) {
+            document.getElementById('pageHeading').textContent = 'Edit Quiz';
+            document.title = 'Quizzi \u2014 Edit Quiz';
+            loadQuizForEdit(editId);
+        }
+
+        async function loadQuizForEdit(id) {
+            try {
+                const resp = await fetch('/quizzi/api/quiz?id=' + id);
+                if (!resp.ok) {
+                    alert('Failed to load quiz.');
+                    window.location.href = 'index.jsp';
+                    return;
+                }
+                const data = await resp.json();
+                if (data.status === 'error') {
+                    alert('Error: ' + data.message);
+                    window.location.href = 'index.jsp';
+                    return;
+                }
+                document.getElementById('quizTitle').value = data.title || '';
+                document.getElementById('quizDesc').value = data.description || '';
+                questions = (data.questions || []).map(q => ({
+                    questionText: q.questionText || '',
+                    optionA: q.optionA || '',
+                    optionB: q.optionB || '',
+                    optionC: q.optionC || '',
+                    optionD: q.optionD || '',
+                    correctAnswer: q.correctAnswer || 'a',
+                    timeLimit: q.timeLimit || 20,
+                    points: q.points || 1000
+                }));
+                renderQuestions();
+            } catch (e) {
+                alert('Failed to load quiz: ' + e.message);
+                window.location.href = 'index.jsp';
+            }
+        }
 
         function addQuestion() {
             questions.push({
@@ -161,13 +206,21 @@
                 if (!questions[i].optionA.trim() || !questions[i].optionB.trim()) { alert('Question ' + (i+1) + ' needs at least options A and B.'); return; }
             }
 
+            const payload = {
+                title,
+                description: document.getElementById('quizDesc').value.trim(),
+                questions
+            };
+
+            if (editId) {
+                payload.id = editId;
+            }
+
             try {
                 const resp = await fetch('/quizzi/api/quiz', {
-                    method: 'POST',
+                    method: editId ? 'PUT' : 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        title, description: document.getElementById('quizDesc').value.trim(), questions
-                    })
+                    body: JSON.stringify(payload)
                 });
                 const data = await resp.json();
                 if (data.status === 'ok') { window.location.href = 'index.jsp'; }

@@ -17,6 +17,93 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CreateQuizServlet extends HttpServlet {
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+
+        String idParam = req.getParameter("id");
+        if (idParam == null || idParam.isEmpty()) {
+            resp.setStatus(400);
+            out.print("{\"status\":\"error\",\"message\":\"Missing id parameter\"}");
+            return;
+        }
+
+        int quizId;
+        try {
+            quizId = Integer.parseInt(idParam);
+        } catch (NumberFormatException e) {
+            resp.setStatus(400);
+            out.print("{\"status\":\"error\",\"message\":\"Invalid id parameter\"}");
+            return;
+        }
+
+        try (Connection conn = DBUtil.getConnection()) {
+            PreparedStatement quizStmt = conn.prepareStatement(
+                "SELECT id, title, description, user_id FROM quizzes WHERE id = ?");
+            quizStmt.setInt(1, quizId);
+            ResultSet quizRs = quizStmt.executeQuery();
+
+            if (!quizRs.next()) {
+                resp.setStatus(404);
+                out.print("{\"status\":\"error\",\"message\":\"Quiz not found\"}");
+                return;
+            }
+
+            String title = quizRs.getString("title");
+            String description = quizRs.getString("description");
+            int ownerUserId = quizRs.getInt("user_id");
+            boolean ownerIsNull = quizRs.wasNull();
+
+            PreparedStatement qStmt = conn.prepareStatement(
+                "SELECT question_text, option_a, option_b, option_c, option_d, "
+                + "correct_answer, time_limit_seconds, points_possible "
+                + "FROM questions WHERE quiz_id = ? ORDER BY question_order");
+            qStmt.setInt(1, quizId);
+            ResultSet qRs = qStmt.executeQuery();
+
+            StringBuilder json = new StringBuilder();
+            json.append("{\"id\":").append(quizId)
+                .append(",\"title\":\"").append(escapeJson(title)).append("\"")
+                .append(",\"description\":\"").append(escapeJson(description != null ? description : "")).append("\"")
+                .append(",\"userId\":").append(ownerIsNull ? "null" : String.valueOf(ownerUserId))
+                .append(",\"questions\":[");
+
+            boolean first = true;
+            while (qRs.next()) {
+                if (!first) json.append(",");
+                first = false;
+                json.append("{\"questionText\":\"").append(escapeJson(qRs.getString("question_text"))).append("\"")
+                    .append(",\"optionA\":\"").append(escapeJson(qRs.getString("option_a"))).append("\"")
+                    .append(",\"optionB\":\"").append(escapeJson(qRs.getString("option_b"))).append("\"")
+                    .append(",\"optionC\":\"").append(escapeJson(qRs.getString("option_c") != null ? qRs.getString("option_c") : "")).append("\"")
+                    .append(",\"optionD\":\"").append(escapeJson(qRs.getString("option_d") != null ? qRs.getString("option_d") : "")).append("\"")
+                    .append(",\"correctAnswer\":\"").append(escapeJson(qRs.getString("correct_answer"))).append("\"")
+                    .append(",\"timeLimit\":").append(qRs.getInt("time_limit_seconds"))
+                    .append(",\"points\":").append(qRs.getInt("points_possible"))
+                    .append("}");
+            }
+
+            json.append("]}");
+            out.print(json.toString());
+
+        } catch (Exception e) {
+            resp.setStatus(500);
+            out.print("{\"status\":\"error\",\"message\":\"" + e.getMessage().replace("\"", "'") + "\"}");
+        }
+    }
+
+    private String escapeJson(String s) {
+        if (s == null) return "";
+        return s.replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -89,6 +176,115 @@ public class CreateQuizServlet extends HttpServlet {
             }
 
             out.print("{\"status\":\"ok\",\"quizId\":" + quizId + "}");
+
+        } catch (Exception e) {
+            resp.setStatus(500);
+            out.print("{\"status\":\"error\",\"message\":\"" + e.getMessage().replace("\"", "'") + "\"}");
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = req.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) sb.append(line);
+        String body = sb.toString();
+
+        try (Connection conn = DBUtil.getConnection()) {
+            int quizId = extractJsonInt(body, "id", -1);
+            if (quizId < 0) {
+                resp.setStatus(400);
+                out.print("{\"status\":\"error\",\"message\":\"Missing quiz id\"}");
+                return;
+            }
+
+            String title = extractJsonString(body, "title");
+            String description = extractJsonString(body, "description");
+
+            Integer userId = null;
+            jakarta.servlet.http.HttpSession session = req.getSession(false);
+            if (session != null && session.getAttribute("userId") != null) {
+                userId = (Integer) session.getAttribute("userId");
+            }
+
+            PreparedStatement ownerCheck = conn.prepareStatement(
+                "SELECT user_id FROM quizzes WHERE id = ?");
+            ownerCheck.setInt(1, quizId);
+            ResultSet ownerRs = ownerCheck.executeQuery();
+            if (!ownerRs.next()) {
+                resp.setStatus(404);
+                out.print("{\"status\":\"error\",\"message\":\"Quiz not found\"}");
+                return;
+            }
+            int ownerUserId = ownerRs.getInt("user_id");
+            boolean ownerIsNull = ownerRs.wasNull();
+            if (!ownerIsNull && (userId == null || userId != ownerUserId)) {
+                resp.setStatus(403);
+                out.print("{\"status\":\"error\",\"message\":\"You do not own this quiz\"}");
+                return;
+            }
+
+            conn.setAutoCommit(false);
+            try {
+                PreparedStatement updateStmt = conn.prepareStatement(
+                    "UPDATE quizzes SET title = ?, description = ? WHERE id = ?");
+                updateStmt.setString(1, title);
+                updateStmt.setString(2, description);
+                updateStmt.setInt(3, quizId);
+                updateStmt.executeUpdate();
+
+                PreparedStatement deleteQs = conn.prepareStatement(
+                    "DELETE FROM questions WHERE quiz_id = ?");
+                deleteQs.setInt(1, quizId);
+                deleteQs.executeUpdate();
+
+                String questionsArray = extractJsonArray(body, "questions");
+                if (questionsArray != null && !questionsArray.isEmpty()) {
+                    String[] questionObjects = splitJsonArray(questionsArray);
+                    int order = 1;
+                    for (String qObj : questionObjects) {
+                        String questionText = extractJsonString(qObj, "questionText");
+                        String optA = extractJsonString(qObj, "optionA");
+                        String optB = extractJsonString(qObj, "optionB");
+                        String optC = extractJsonString(qObj, "optionC");
+                        String optD = extractJsonString(qObj, "optionD");
+                        String correct = extractJsonString(qObj, "correctAnswer");
+                        int timeLimit = extractJsonInt(qObj, "timeLimit", 20);
+                        int points = extractJsonInt(qObj, "points", 1000);
+
+                        PreparedStatement qStmt = conn.prepareStatement(
+                            "INSERT INTO questions (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_answer, time_limit_seconds, points_possible, question_order) "
+                            + "VALUES (?,?,?,?,?,?,?,?,?,?)");
+                        qStmt.setInt(1, quizId);
+                        qStmt.setString(2, questionText);
+                        qStmt.setString(3, optA);
+                        qStmt.setString(4, optB);
+                        qStmt.setString(5, optC != null && !optC.isEmpty() ? optC : null);
+                        qStmt.setString(6, optD != null && !optD.isEmpty() ? optD : null);
+                        qStmt.setString(7, correct);
+                        qStmt.setInt(8, timeLimit);
+                        qStmt.setInt(9, points);
+                        qStmt.setInt(10, order++);
+                        qStmt.executeUpdate();
+                    }
+                }
+
+                conn.commit();
+                out.print("{\"status\":\"ok\",\"quizId\":" + quizId + "}");
+            } catch (Exception e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
 
         } catch (Exception e) {
             resp.setStatus(500);

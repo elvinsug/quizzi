@@ -99,7 +99,7 @@
                         <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">${escHtml(q.description || '')}</p>
                         <div class="quiz-card-actions">
                             <button class="btn btn-black btn-sm" onclick="hostGame(${q.id})">HOST LIVE</button>
-                            <a href="create-quiz.jsp?editId=${q.id}" class="btn btn-outline btn-sm">Edit</a>
+                            ${q.isOwner ? `<a href="create-quiz.jsp?editId=${q.id}" class="btn btn-outline btn-sm">Edit</a>` : ''}
                         </div>
                     `;
                     container.appendChild(card);
