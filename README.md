@@ -1593,30 +1593,63 @@ All API endpoints are served by the Tomcat webapp at the `/quizzi` context path.
 
 ## Database Schema
 
-```sql
-quizzes            questions              game_sessions
-┌────────────┐     ┌───────────────────┐   ┌─────────────────────┐
-│ id (PK)    │◄──┐ │ id (PK)           │   │ id (PK)             │
-│ title      │   └─│ quiz_id (FK)      │┌─►│ quiz_id (FK)        │
-│ description│     │ question_text     ││  │ game_pin (unique)   │
-│ created_at │     │ option_a/b/c/d    ││  │ status (enum)       │
-└────────────┘     │ correct_answer    ││  │ current_question_   │
-                   │ time_limit_seconds││  │   order             │
-                   │ points_possible   ││  │ question_started_at │
-                   │ question_order    ││  │ created_at          │
-                   └───────────────────┘│  └─────────────────────┘
-                                        │            │
-               players                  │  responses │
-               ┌───────────────────┐    │  ┌─────────┴──────────┐
-               │ id (PK)           │    │  │ id (PK)            │
-               │ game_session_id   │────┘  │ game_session_id(FK)│
-               │   (FK)            │       │ question_id (FK)   │
-               │ nickname          │◄──────│ player_id (FK)     │
-               │ total_score       │       │ choice             │
-               └───────────────────┘       │ response_time_ms   │
-                                           │ points_earned      │
-                                           │ submitted_at       │
-                                           └────────────────────┘
+```mermaid
+erDiagram
+    quizzes {
+        INT id PK
+        VARCHAR title
+        TEXT description
+        TIMESTAMP created_at
+    }
+
+    questions {
+        INT id PK
+        INT quiz_id FK
+        VARCHAR question_text
+        VARCHAR option_a
+        VARCHAR option_b
+        VARCHAR option_c
+        VARCHAR option_d
+        CHAR correct_answer
+        INT time_limit_seconds
+        INT points_possible
+        INT question_order
+    }
+
+    game_sessions {
+        INT id PK
+        INT quiz_id FK
+        VARCHAR game_pin UK
+        ENUM status
+        INT current_question_order
+        BIGINT question_started_at
+        TIMESTAMP created_at
+    }
+
+    players {
+        INT id PK
+        INT game_session_id FK
+        VARCHAR nickname
+        INT total_score
+    }
+
+    responses {
+        INT id PK
+        INT game_session_id FK
+        INT question_id FK
+        INT player_id FK
+        CHAR choice
+        INT response_time_ms
+        INT points_earned
+        TIMESTAMP submitted_at
+    }
+
+    quizzes ||--o{ questions : "contains"
+    quizzes ||--o{ game_sessions : "hosts"
+    game_sessions ||--o{ players : "has"
+    game_sessions ||--o{ responses : "records"
+    questions ||--o{ responses : "answered in"
+    players ||--o{ responses : "submits"
 ```
 
 Game session statuses: `waiting` → `active` → `showing_question` → `showing_results` → `showing_leaderboard` → `finished`
