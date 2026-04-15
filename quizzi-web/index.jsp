@@ -81,9 +81,17 @@
                 const quizzes = await resp.json();
                 const container = document.getElementById('quizList');
 
-                if (!Array.isArray(quizzes) || quizzes.length === 0) return;
-
                 container.innerHTML = '';
+
+                if (!Array.isArray(quizzes) || quizzes.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center" style="grid-column:1/-1; padding:4rem 0; color:var(--text-muted);">
+                            <p style="font-size:3rem; margin-bottom:1rem;">📝</p>
+                            <p style="font-size:1.1rem; font-weight:700;">No quizzes yet</p>
+                            <p style="margin-top:0.5rem;">Create your first quiz to get started!</p>
+                        </div>`;
+                    return;
+                }
                 const pastels = ['var(--pastel-lavender)', 'var(--pastel-blue)', 'var(--pastel-beige)', 'var(--pastel-pink)', 'var(--pastel-cyan)', 'var(--pastel-yellow)', 'var(--pastel-green)'];
 
                 quizzes.forEach((q, i) => {
@@ -99,7 +107,8 @@
                         <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">${escHtml(q.description || '')}</p>
                         <div class="quiz-card-actions">
                             <button class="btn btn-black btn-sm" onclick="hostGame(${q.id})">HOST LIVE</button>
-                            ${q.isOwner ? `<a href="create-quiz.jsp?editId=${q.id}" class="btn btn-outline btn-sm">Edit</a>` : ''}
+                            ${q.isOwner ? `<a href="create-quiz.jsp?editId=${q.id}" class="btn btn-outline btn-sm">Edit</a>
+                            <button class="btn btn-outline btn-sm" onclick="deleteQuiz(${q.id})" title="Delete">&#128465;</button>` : ''}
                         </div>
                     `;
                     container.appendChild(card);
@@ -120,6 +129,21 @@
                 }
             } catch (e) {
                 alert('Failed to start game: ' + e.message);
+            }
+        }
+
+        async function deleteQuiz(quizId) {
+            if (!confirm('Are you sure you want to delete this quiz? This cannot be undone.')) return;
+            try {
+                const resp = await fetch('/quizzi/api/quiz?id=' + quizId, { method: 'DELETE' });
+                const data = await resp.json();
+                if (data.status === 'ok') {
+                    loadQuizzes();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (e) {
+                alert('Failed to delete quiz: ' + e.message);
             }
         }
 

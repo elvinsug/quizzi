@@ -292,6 +292,95 @@ public class CreateQuizServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+
+        String idParam = req.getParameter("id");
+        if (idParam == null || idParam.isEmpty()) {
+            resp.setStatus(400);
+            out.print("{\"status\":\"error\",\"message\":\"Missing id parameter\"}");
+            return;
+        }
+
+        int quizId;
+        try {
+            quizId = Integer.parseInt(idParam);
+        } catch (NumberFormatException e) {
+            resp.setStatus(400);
+            out.print("{\"status\":\"error\",\"message\":\"Invalid id parameter\"}");
+            return;
+        }
+
+        try (Connection conn = DBUtil.getConnection()) {
+            Integer userId = null;
+            jakarta.servlet.http.HttpSession session = req.getSession(false);
+            if (session != null && session.getAttribute("userId") != null) {
+                userId = (Integer) session.getAttribute("userId");
+            }
+
+            PreparedStatement ownerCheck = conn.prepareStatement(
+                "SELECT user_id FROM quizzes WHERE id = ?");
+            ownerCheck.setInt(1, quizId);
+            ResultSet ownerRs = ownerCheck.executeQuery();
+            if (!ownerRs.next()) {
+                resp.setStatus(404);
+                out.print("{\"status\":\"error\",\"message\":\"Quiz not found\"}");
+                return;
+            }
+            int ownerUserId = ownerRs.getInt("user_id");
+            boolean ownerIsNull = ownerRs.wasNull();
+            if (!ownerIsNull && (userId == null || userId != ownerUserId)) {
+                resp.setStatus(403);
+                out.print("{\"status\":\"error\",\"message\":\"You do not own this quiz\"}");
+                return;
+            }
+
+            conn.setAutoCommit(false);
+            try {
+                PreparedStatement delResponses = conn.prepareStatement(
+                    "DELETE r FROM responses r "
+                    + "INNER JOIN game_sessions gs ON r.game_session_id = gs.id "
+                    + "WHERE gs.quiz_id = ?");
+                delResponses.setInt(1, quizId);
+                delResponses.executeUpdate();
+
+                PreparedStatement delPlayers = conn.prepareStatement(
+                    "DELETE p FROM players p "
+                    + "INNER JOIN game_sessions gs ON p.game_session_id = gs.id "
+                    + "WHERE gs.quiz_id = ?");
+                delPlayers.setInt(1, quizId);
+                delPlayers.executeUpdate();
+
+                PreparedStatement delSessions = conn.prepareStatement(
+                    "DELETE FROM game_sessions WHERE quiz_id = ?");
+                delSessions.setInt(1, quizId);
+                delSessions.executeUpdate();
+
+                PreparedStatement delQuiz = conn.prepareStatement(
+                    "DELETE FROM quizzes WHERE id = ?");
+                delQuiz.setInt(1, quizId);
+                delQuiz.executeUpdate();
+
+                conn.commit();
+                out.print("{\"status\":\"ok\"}");
+            } catch (Exception e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
+
+        } catch (Exception e) {
+            resp.setStatus(500);
+            out.print("{\"status\":\"error\",\"message\":\"" + e.getMessage().replace("\"", "'") + "\"}");
+        }
+    }
+
     // ---- Minimal JSON helpers (no external libs) ----
 
     static String extractJsonString(String json, String key) {
