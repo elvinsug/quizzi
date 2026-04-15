@@ -13,8 +13,8 @@
 <body>
     <div class="game-bg" id="gameScreen">
 
-        <!-- Question View -->
-        <div id="viewQuestion" class="hidden" style="width:100%; max-width:740px;">
+        <!-- Question View (Host Monitor) -->
+        <div id="viewQuestion" class="hidden host-view-section">
             <div class="question-header">
                 <span class="step-indicator" id="qNumber"></span>
                 <div class="timer" id="timerDisplay">--</div>
@@ -22,51 +22,56 @@
             <div class="question-card">
                 <div class="question-text" id="qText"></div>
             </div>
-            <div class="answer-grid" id="answerGrid">
-                <div class="answer-btn answer-a"><span id="optA"></span></div>
-                <div class="answer-btn answer-b"><span id="optB"></span></div>
-                <div class="answer-btn answer-c"><span id="optC"></span></div>
-                <div class="answer-btn answer-d"><span id="optD"></span></div>
+            <div class="host-monitor">
+                <div class="host-answer-list" id="hostAnswerList">
+                    <div class="host-answer-item"><span class="host-letter host-letter-a">A</span><span id="optA"></span></div>
+                    <div class="host-answer-item"><span class="host-letter host-letter-b">B</span><span id="optB"></span></div>
+                    <div class="host-answer-item" id="hostOptC"><span class="host-letter host-letter-c">C</span><span id="optC"></span></div>
+                    <div class="host-answer-item" id="hostOptD"><span class="host-letter host-letter-d">D</span><span id="optD"></span></div>
+                </div>
+                <div class="host-progress-ring">
+                    <span class="progress-count" id="progressCount">0</span>
+                    <span class="progress-label" id="progressLabel">answered</span>
+                </div>
             </div>
-            <div class="answer-count-bar mt-3" style="justify-content:center;">
-                <span id="answerProgress">0 / 0 answered</span>
-            </div>
-            <div class="text-center mt-3">
+            <div class="text-center" style="margin-top:1.25rem;">
                 <button class="btn btn-black btn-lg" onclick="showResults()">SHOW RESULTS</button>
             </div>
         </div>
 
         <!-- Results View -->
-        <div id="viewResults" class="hidden" style="width:100%; max-width:740px;">
+        <div id="viewResults" class="hidden host-view-section">
             <div class="question-header">
                 <span class="step-indicator" id="rQNumber"></span>
                 <span style="font-weight:700; font-size:1rem;">
                     Correct: <span id="rCorrectAnswer" style="color:var(--correct-green);"></span>
                 </span>
             </div>
-            <div class="question-text" id="rQText"></div>
+            <div class="question-card">
+                <div class="question-text" id="rQText"></div>
+            </div>
             <div class="results-chart-container">
                 <canvas id="resultsChart" height="220"></canvas>
             </div>
-            <p class="text-center mt-2" style="font-size:1rem; color:var(--text-muted);" id="rCorrectPercent"></p>
-            <div class="text-center mt-3">
+            <p class="text-center" style="font-size:1rem; color:var(--text-muted);" id="rCorrectPercent"></p>
+            <div class="text-center">
                 <button class="btn btn-black btn-lg" onclick="showLeaderboard()">SHOW LEADERBOARD</button>
             </div>
         </div>
 
         <!-- Leaderboard View -->
-        <div id="viewLeaderboard" class="hidden" style="width:100%; max-width:600px;">
+        <div id="viewLeaderboard" class="hidden host-view-section">
             <h1 class="text-center" style="font-size:1.8rem; margin-bottom:1.5rem;">LEADERBOARD</h1>
-            <ul class="leaderboard-list" id="lbList"></ul>
+            <ul class="leaderboard-list" id="lbList" style="max-width:700px;"></ul>
             <div class="text-center mt-4" id="lbActions"></div>
         </div>
 
         <!-- Finished / Podium View -->
-        <div id="viewPodium" class="hidden" style="width:100%; max-width:700px;">
+        <div id="viewPodium" class="hidden host-view-section">
             <h1 class="text-center" style="font-size:1.8rem; margin-bottom:1rem;">FINAL RESULTS</h1>
             <div class="podium" id="podiumDisplay"></div>
             <h3 class="text-center mt-4" style="color:var(--text-muted); font-size:1rem;">Full Rankings</h3>
-            <ul class="leaderboard-list" id="fullRankings" style="margin-top:0.75rem;"></ul>
+            <ul class="leaderboard-list" id="fullRankings" style="margin-top:0.75rem; max-width:700px;"></ul>
             <div class="text-center mt-4">
                 <a href="index.jsp" class="btn btn-black btn-lg">BACK TO QUIZZES</a>
             </div>
@@ -99,8 +104,7 @@
             onUpdate(data) {
                 currentData = data;
                 if (data.status === 'showing_question') {
-                    document.getElementById('answerProgress').textContent =
-                        (data.answerCount || 0) + ' / ' + data.playerCount + ' answered';
+                    updateProgress(data.answerCount || 0, data.playerCount || 0);
                 }
             }
         });
@@ -111,13 +115,17 @@
             document.getElementById('qText').textContent = data.questionText;
             document.getElementById('optA').textContent = data.optionA;
             document.getElementById('optB').textContent = data.optionB;
-            const optCEl = document.getElementById('optC').parentElement;
-            const optDEl = document.getElementById('optD').parentElement;
-            if (data.optionC) { document.getElementById('optC').textContent = data.optionC; optCEl.classList.remove('hidden'); }
-            else { optCEl.classList.add('hidden'); }
-            if (data.optionD) { document.getElementById('optD').textContent = data.optionD; optDEl.classList.remove('hidden'); }
-            else { optDEl.classList.add('hidden'); }
+            if (data.optionC) { document.getElementById('optC').textContent = data.optionC; document.getElementById('hostOptC').classList.remove('hidden'); }
+            else { document.getElementById('hostOptC').classList.add('hidden'); }
+            if (data.optionD) { document.getElementById('optD').textContent = data.optionD; document.getElementById('hostOptD').classList.remove('hidden'); }
+            else { document.getElementById('hostOptD').classList.add('hidden'); }
+            updateProgress(data.answerCount || 0, data.playerCount || 0);
             startTimer(data.timeLimit, data.questionStartedAt);
+        }
+
+        function updateProgress(answered, total) {
+            document.getElementById('progressCount').textContent = answered + ' / ' + total;
+            document.getElementById('progressLabel').textContent = 'answered';
         }
 
         function startTimer(timeLimit, startedAt) {

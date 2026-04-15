@@ -99,29 +99,33 @@
                                value="${escAttr(q.questionText)}" onchange="updateQ(${i},'questionText',this.value)" maxlength="500">
                     </div>
                     <div class="answer-options">
-                        <div class="answer-option-input opt-a">
-                            <input type="radio" name="correct_${i}" class="correct-radio" value="a" ${q.correctAnswer==='a'?'checked':''}
-                                   onchange="updateQ(${i},'correctAnswer','a')">
+                        <div class="answer-option-input${q.correctAnswer==='a'?' is-correct':''}">
+                            <span class="option-letter">A</span>
                             <input type="text" placeholder="Option A" value="${escAttr(q.optionA)}"
                                    onchange="updateQ(${i},'optionA',this.value)" maxlength="200">
+                            <input type="radio" name="correct_${i}" class="correct-radio" value="a" ${q.correctAnswer==='a'?'checked':''}
+                                   onchange="updateQ(${i},'correctAnswer','a'); renderQuestions();">
                         </div>
-                        <div class="answer-option-input opt-b">
-                            <input type="radio" name="correct_${i}" class="correct-radio" value="b" ${q.correctAnswer==='b'?'checked':''}
-                                   onchange="updateQ(${i},'correctAnswer','b')">
+                        <div class="answer-option-input${q.correctAnswer==='b'?' is-correct':''}">
+                            <span class="option-letter">B</span>
                             <input type="text" placeholder="Option B" value="${escAttr(q.optionB)}"
                                    onchange="updateQ(${i},'optionB',this.value)" maxlength="200">
+                            <input type="radio" name="correct_${i}" class="correct-radio" value="b" ${q.correctAnswer==='b'?'checked':''}
+                                   onchange="updateQ(${i},'correctAnswer','b'); renderQuestions();">
                         </div>
-                        <div class="answer-option-input opt-c">
-                            <input type="radio" name="correct_${i}" class="correct-radio" value="c" ${q.correctAnswer==='c'?'checked':''}
-                                   onchange="updateQ(${i},'correctAnswer','c')">
+                        <div class="answer-option-input${q.correctAnswer==='c'?' is-correct':''}">
+                            <span class="option-letter">C</span>
                             <input type="text" placeholder="Option C (optional)" value="${escAttr(q.optionC)}"
                                    onchange="updateQ(${i},'optionC',this.value)" maxlength="200">
+                            <input type="radio" name="correct_${i}" class="correct-radio" value="c" ${q.correctAnswer==='c'?'checked':''}
+                                   onchange="updateQ(${i},'correctAnswer','c'); renderQuestions();">
                         </div>
-                        <div class="answer-option-input opt-d">
-                            <input type="radio" name="correct_${i}" class="correct-radio" value="d" ${q.correctAnswer==='d'?'checked':''}
-                                   onchange="updateQ(${i},'correctAnswer','d')">
+                        <div class="answer-option-input${q.correctAnswer==='d'?' is-correct':''}">
+                            <span class="option-letter">D</span>
                             <input type="text" placeholder="Option D (optional)" value="${escAttr(q.optionD)}"
                                    onchange="updateQ(${i},'optionD',this.value)" maxlength="200">
+                            <input type="radio" name="correct_${i}" class="correct-radio" value="d" ${q.correctAnswer==='d'?'checked':''}
+                                   onchange="updateQ(${i},'correctAnswer','d'); renderQuestions();">
                         </div>
                     </div>
                     <div class="time-points-row">

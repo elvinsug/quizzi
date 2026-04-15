@@ -66,10 +66,11 @@
                 android:layout_height="wrap_content"
                 android:text="CONTINUE AS GUEST"
                 android:layout_marginTop="24dp"
-                android:backgroundTint="@android:color/transparent"
                 android:textColor="@color/text_muted"
+                android:textSize="15sp"
+                android:letterSpacing="0.04"
                 app:rippleColor="@color/text_light"
-                style="@style/QuizziButton" />
+                style="@style/Widget.MaterialComponents.Button.TextButton" />
         </LinearLayout>
 
         <!-- Login View -->

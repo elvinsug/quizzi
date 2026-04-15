@@ -31,7 +31,7 @@
         <div class="question-card" style="max-width:600px;">
             <div class="question-text" id="qText" style="font-size:1.25rem;"></div>
         </div>
-        <div class="answer-grid" style="max-width:500px;" id="answerBtns">
+        <div class="answer-grid" style="max-width:600px;" id="answerBtns">
             <button class="answer-btn answer-a" onclick="submitAnswer('a')">
                 <span id="optA"></span></button>
             <button class="answer-btn answer-b" onclick="submitAnswer('b')">
@@ -76,7 +76,10 @@
         <div style="font-size:3.5rem; font-weight:800; margin:0.5rem 0;" id="finalRank"></div>
         <p style="font-size:1.2rem; font-weight:700;" id="finalScore"></p>
         <p style="color:var(--text-muted); margin-top:1rem;" id="finalMessage"></p>
-        <a href="index.jsp" class="btn btn-black btn-lg" style="margin-top:2rem;">PLAY AGAIN</a>
+        <div style="display:flex; gap:1rem; margin-top:2rem;">
+            <a href="index.jsp" class="btn btn-black btn-lg">PLAY AGAIN</a>
+            <a href="/quizzi/index.jsp" class="btn btn-outline btn-lg">BACK TO HOME</a>
+        </div>
     </div>
 
     <!-- STATUS BANNER -->
