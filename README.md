@@ -1543,23 +1543,23 @@ static String[] splitJsonArray(String arrayContent) {
 
 ```mermaid
 flowchart TD
-    A["Raw JSON body arrives:\n{title:'...', questions:[{...},{...}]}"] --> B["extractJsonString(body, 'title')"]
-    B --> C["Find '\"title\"' → scan past ':' → read between quotes"]
-    C --> D["extractJsonString(body, 'description')"]
-    D --> E["extractJsonArray(body, 'questions')"]
-    E --> F["Find '\"questions\"' → find '[' → track bracket depth → return content between [ ]"]
-    F --> G["splitJsonArray(arrayContent)"]
-    G --> H["Track brace depth: '{' increments, '}' decrements"]
-    H --> I{"depth == 0 after '}'?"}
-    I -->|Yes| J["Capture substring as one question object, skip comma"]
-    I -->|No| K["Continue scanning"]
-    J --> L["For each question object:"]
-    L --> M["extractJsonString(qObj, 'questionText')"]
-    L --> N["extractJsonString(qObj, 'optionA') ... 'optionD'"]
-    L --> O["extractJsonString(qObj, 'correctAnswer')"]
-    L --> P["extractJsonInt(qObj, 'timeLimit', 20)"]
-    L --> Q["extractJsonInt(qObj, 'points', 1000)"]
-    M --> R["INSERT INTO questions with parsed values"]
+    A["Raw JSON body: title, description, questions array"] --> B["extractJsonString body, key title"]
+    B --> C["Find title key, scan past colon, read quoted value"]
+    C --> D["extractJsonString body, key description"]
+    D --> E["extractJsonArray body, key questions"]
+    E --> F["Find questions key, locate bracket pair, return inner slice"]
+    F --> G["splitJsonArray of array content"]
+    G --> H["Brace depth: open brace plus one, close brace minus one"]
+    H --> I{Depth back to zero?}
+    I -->|Yes| J["Slice is one question object; skip comma"]
+    I -->|No| K["Keep scanning"]
+    J --> L["For each question object"]
+    L --> M["extractJsonString questionText"]
+    L --> N["extractJsonString optionA through optionD"]
+    L --> O["extractJsonString correctAnswer"]
+    L --> P["extractJsonInt timeLimit default 20"]
+    L --> Q["extractJsonInt points default 1000"]
+    M --> R["INSERT INTO questions"]
     N --> R
     O --> R
     P --> R
